@@ -1,3 +1,7 @@
+box.collapse-spacing.vertical {
+  padding: 0;
+}
+
 :root {
   --headerbar-bg-oklch: 0.95 calc(c * 0.3) h;
   --headerbar-backdrop-oklch: 0.9 calc(c * 0.25) h;
