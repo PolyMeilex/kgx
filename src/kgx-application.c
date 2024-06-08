@@ -164,6 +164,10 @@ kgx_application_startup (GApplication *app)
                                theme_to_colour_scheme, NULL, NULL, NULL);
 
   gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                         "win.toggle-headerbar",
+                                         (const char *[]) { "<shift><primary>h", NULL });
+
+  gtk_application_set_accels_for_action (GTK_APPLICATION (app),
                                          "win.new-window",
                                          (const char *[]) { "<shift><primary>n", "New", NULL });
   gtk_application_set_accels_for_action (GTK_APPLICATION (app),

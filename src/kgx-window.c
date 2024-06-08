@@ -48,6 +48,7 @@ struct _KgxWindowPrivate {
 
   /* Template widgets */
   GtkWidget            *theme_switcher;
+  GtkWidget            *header_bar_revealer;
   GtkWidget            *tab_bar;
   GtkWidget            *tab_overview;
   GtkWidget            *pages;
@@ -522,6 +523,17 @@ new_activated (GtkWidget  *widget,
                                 NULL);
 }
 
+static void
+header_bar_toggle_activated (GtkWidget  *widget,
+                             const char *action_name,
+                             GVariant   *parameter)
+{
+  KgxWindow *self = KGX_WINDOW (widget);
+  KgxWindowPrivate *priv = kgx_window_get_instance_private (self);
+
+  gboolean v = !gtk_revealer_get_reveal_child(GTK_REVEALER(priv->header_bar_revealer));
+  gtk_revealer_set_reveal_child(GTK_REVEALER(priv->header_bar_revealer), v);
+}
 
 static void
 new_tab_activated (GtkWidget  *widget,
@@ -648,6 +660,7 @@ kgx_window_class_init (KgxWindowClass *klass)
                                                KGX_APPLICATION_PATH "kgx-window.ui");
 
   gtk_widget_class_bind_template_child_private (widget_class, KgxWindow, theme_switcher);
+  gtk_widget_class_bind_template_child_private (widget_class, KgxWindow, header_bar_revealer);
   gtk_widget_class_bind_template_child_private (widget_class, KgxWindow, tab_bar);
   gtk_widget_class_bind_template_child_private (widget_class, KgxWindow, tab_overview);
   gtk_widget_class_bind_template_child_private (widget_class, KgxWindow, pages);
@@ -673,6 +686,10 @@ kgx_window_class_init (KgxWindowClass *klass)
   gtk_widget_class_install_action (widget_class, "tab.close", NULL, close_tab_activated);
   gtk_widget_class_install_action (widget_class, "tab.detach", NULL, detach_tab_activated);
 
+  gtk_widget_class_install_action (widget_class,
+                                   "win.toggle-headerbar",
+                                   NULL,
+                                   header_bar_toggle_activated);
   gtk_widget_class_install_action (widget_class,
                                    "win.new-window",
                                    NULL,
