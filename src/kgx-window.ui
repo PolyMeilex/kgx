@@ -70,6 +70,10 @@
             </style>
             <property name="top-bar-style">raised</property>
             <child type="top">
+              <!-- Keep the wrong indentation, to hopefully make this git conflict resilient -->
+              <object class="GtkRevealer" id="header_bar_revealer">
+              <property name="reveal-child">true</property>
+              <child>
               <object class="GtkHeaderBar" id="header_bar">
                 <property name="title-widget">
                   <object class="AdwWindowTitle">
@@ -178,6 +182,8 @@
                   </object>
                 </child>
               </object>
+              </child> <!-- GtkRevealer -->
+              </object> <!-- GtkRevealer -->
             </child>
             <child type="top">
               <object class="AdwTabBar" id="tab_bar">
