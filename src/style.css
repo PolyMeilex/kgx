@@ -2,6 +2,15 @@ box.collapse-spacing.vertical {
   padding: 0;
 }
 
+tabbar * {
+  padding: 0px;
+  min-height: 0px;
+}
+
+tabbar tab {
+  padding: 3px;
+}
+
 :root {
   --headerbar-bg-oklch: 0.95 calc(c * 0.3) h;
   --headerbar-backdrop-oklch: 0.9 calc(c * 0.25) h;

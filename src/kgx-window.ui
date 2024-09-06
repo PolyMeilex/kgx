@@ -198,6 +198,7 @@
                     </lookup>
                   </closure>
                 </binding>
+                <property name="expand-tabs">false</property>
                 <signal name="extra-drag-drop" handler="extra_drag_drop" swapped="no" />
               </object>
             </child>
