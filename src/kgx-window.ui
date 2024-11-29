@@ -72,7 +72,7 @@
             <child type="top">
               <!-- Keep the wrong indentation, to hopefully make this git conflict resilient -->
               <object class="GtkRevealer" id="header_bar_revealer">
-              <property name="reveal-child">true</property>
+              <property name="reveal-child">false</property>
               <child>
               <object class="GtkHeaderBar" id="header_bar">
                 <property name="title-widget">
