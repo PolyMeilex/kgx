@@ -536,6 +536,78 @@ header_bar_toggle_activated (GtkWidget  *widget,
 }
 
 static void
+next_tab_activated (GtkWidget  *widget,
+                             const char *action_name,
+                             GVariant   *parameter)
+{
+  KgxWindow *self = KGX_WINDOW (widget);
+  KgxWindowPrivate *priv = kgx_window_get_instance_private (self);
+  AdwTabView* view = adw_tab_overview_get_view (ADW_TAB_OVERVIEW (priv->tab_overview));
+  gboolean success;
+
+  int n_pages = adw_tab_view_get_n_pages (view);
+  if (n_pages <= 1) return;
+
+  success = adw_tab_view_select_next_page (view);
+
+  if (!success) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (view, 0);
+    adw_tab_view_set_selected_page (view, page);
+  }
+}
+
+static void
+prev_tab_activated (GtkWidget  *widget,
+                             const char *action_name,
+                             GVariant   *parameter)
+{
+  KgxWindow *self = KGX_WINDOW (widget);
+  KgxWindowPrivate *priv = kgx_window_get_instance_private (self);
+  AdwTabView* view = adw_tab_overview_get_view (ADW_TAB_OVERVIEW (priv->tab_overview));
+  gboolean success;
+
+  int n_pages = adw_tab_view_get_n_pages (view);
+  if (n_pages <= 1) return;
+
+  success = adw_tab_view_select_previous_page (view);
+
+  if (!success) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (view, n_pages - 1);
+    adw_tab_view_set_selected_page (view, page);
+  }
+}
+
+static void
+move_tab_right_activated (GtkWidget  *widget,
+                             const char *action_name,
+                             GVariant   *parameter)
+{
+  KgxWindow *self = KGX_WINDOW (widget);
+  KgxWindowPrivate *priv = kgx_window_get_instance_private (self);
+  AdwTabView* view = adw_tab_overview_get_view (ADW_TAB_OVERVIEW (priv->tab_overview));
+
+  AdwTabPage *page = adw_tab_view_get_selected_page (view);
+  if (!page) return;
+
+  adw_tab_view_reorder_forward (view, page);
+}
+
+static void
+move_tab_left_activated (GtkWidget  *widget,
+                             const char *action_name,
+                             GVariant   *parameter)
+{
+  KgxWindow *self = KGX_WINDOW (widget);
+  KgxWindowPrivate *priv = kgx_window_get_instance_private (self);
+  AdwTabView* view = adw_tab_overview_get_view (ADW_TAB_OVERVIEW (priv->tab_overview));
+
+  AdwTabPage *page = adw_tab_view_get_selected_page (view);
+  if (!page) return;
+
+  adw_tab_view_reorder_backward (view, page);
+}
+
+static void
 new_tab_activated (GtkWidget  *widget,
                    const char *action_name,
                    GVariant   *parameter)
@@ -690,6 +762,26 @@ kgx_window_class_init (KgxWindowClass *klass)
                                    "win.toggle-headerbar",
                                    NULL,
                                    header_bar_toggle_activated);
+
+  gtk_widget_class_install_action (widget_class,
+                                   "win.next-tab",
+                                   NULL,
+                                   next_tab_activated);
+  gtk_widget_class_install_action (widget_class,
+                                   "win.prev-tab",
+                                   NULL,
+                                   prev_tab_activated);
+
+  gtk_widget_class_install_action (widget_class,
+                                   "win.move-tab-right",
+                                   NULL,
+                                   move_tab_right_activated);
+  gtk_widget_class_install_action (widget_class,
+                                   "win.move-tab-left",
+                                   NULL,
+                                   move_tab_left_activated);
+
+
   gtk_widget_class_install_action (widget_class,
                                    "win.new-window",
                                    NULL,

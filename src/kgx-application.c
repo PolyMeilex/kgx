@@ -168,6 +168,20 @@ kgx_application_startup (GApplication *app)
                                          (const char *[]) { "<shift><primary>h", NULL });
 
   gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                         "win.next-tab",
+                                         (const char *[]) { "<primary>k", NULL });
+  gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                         "win.prev-tab",
+                                         (const char *[]) { "<primary>j", NULL });
+
+  gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                         "win.move-tab-right",
+                                         (const char *[]) { "<shift><primary>k", NULL });
+  gtk_application_set_accels_for_action (GTK_APPLICATION (app),
+                                         "win.move-tab-left",
+                                         (const char *[]) { "<shift><primary>j", NULL });
+
+  gtk_application_set_accels_for_action (GTK_APPLICATION (app),
                                          "win.new-window",
                                          (const char *[]) { "<shift><primary>n", "New", NULL });
   gtk_application_set_accels_for_action (GTK_APPLICATION (app),
